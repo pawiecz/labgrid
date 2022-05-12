@@ -120,7 +120,9 @@ class QEMUDriver(ConsoleExpectMixin, Driver, PowerProtocol, ConsoleProtocol):
                 self._cmd.append("-drive")
                 self._cmd.append(
                     f"if=sd,format={disk_format},file={disk_path},id=mmc0")
-                boot_args.append("root=/dev/mmcblk0p1 rootfstype=ext4 rootwait")
+                # TODO Should "disk" argument enforce following boot_args?
+                # Providing own "boot_args" appends them to the following defaults (see L175)
+                # boot_args.append("root=/dev/mmcblk0p1 rootfstype=ext4 rootwait")
             elif self.machine == "pc":
                 self._cmd.append("-drive")
                 self._cmd.append(
